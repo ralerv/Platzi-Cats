@@ -1,0 +1,244 @@
+:root {
+    --dark-jungle-green: #002029;
+    --dark-jungle-green-transparency:#3D002029;
+    --gunmetal: #00303D;
+    --midnight-green: #004052;
+    --eagle-green: #005066;
+    --blue-sapphire: #00607A;
+    --xlg: 3.2rem;
+    --medium: 2rem;
+    --short-transition-time: 0.2s;
+    --normal-transition-time: 0.5s;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior:smooth;
+    font-size: 62.5%;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Silkscreen', cursive;
+}
+
+body {
+    font-family: "Open Sans";
+    font-size: 1.6rem;
+}
+
+h1{
+    height: 8vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    background-color: var(--dark-jungle-green);
+    font-size: var(--medium);
+}
+
+main {
+    height: 92vh;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: 90% 10%;
+}
+
+main button{
+    grid-area: 2 / 1 / 3 / 3;
+}
+
+#cat-images{
+    display: grid;
+    grid-template-columns: repeat(2,50%);
+    grid-template-rows: repeat(2,50%);
+}
+
+.img-div{
+    position: relative;
+}
+
+.img-div img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.img-div svg{
+    position: absolute;
+    z-index: 2;
+    width: 32px;
+    height: 32px;
+    right: 0;
+}
+
+/*footer*/
+
+.real-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--gunmetal);
+    padding: 1rem;
+    font-size: 1.6rem;
+    color: white;
+}
+
+.real-footer p:first-child{
+    width: 40vw;
+}
+
+/*social tree*/
+.main-social-tree {     /* General distribution */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3.2rem;
+}
+
+.social-tree-title {        /* Styles of CONTAINER of title of social list */
+    display: flex; 
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.2rem;
+    background-color: var(--blue-sapphire);
+}
+
+.social-tree-title p{       /* Styles of title of social list */
+    font-size: 1.6rem;
+    text-align: center;
+    color: white;
+}
+
+.social-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 2.4rem;
+}
+
+.social-list li{        /* Size of Every LI */
+    width: 72%;
+    height: 5rem;
+    list-style: none;
+}
+
+.social-list--link{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: var(--midnight-green);
+    font-size: 1.6rem;
+    gap: 0.8rem;
+    font-weight: bold;
+    padding: 0.4rem;
+    border: 0.4rem solid var(--blue-sapphire);
+    transition: transform color background-color;
+    transition-duration: var(--short-transition-time);
+    text-decoration: none;
+}
+
+.img-span {         /* Size of imgs of social list */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-span img {
+    max-width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* #instagram--link:hover > span > img{
+    transition: opacity transform filter;
+    transition-duration: var(--short-transition-time); 
+} */   /* Change img while transition */
+
+@media (any-hover: hover) {
+    .social-list--link:hover {           /* hover for list options */
+        background-color: var(--blue-sapphire);
+        transform: scale(1.1);
+        color: white;
+    }
+
+     #instagram--link:hover > span {
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+     #instagram--link:hover > span > img{
+        /* transform: scale(0.7);
+        filter: brightness(0) invert(1); */
+        opacity: 0;
+    } 
+}
+
+@media only screen and (min-width: 768px) {  /* Tablet */
+    .social-list {
+        width: 96%;
+        display: flex;
+        flex-direction: row;
+        justify-items: center;
+        align-content: center;
+        gap: 1.2rem;
+    }
+
+    .main-social-tree {     /* General distribution */
+        align-items: center;
+        margin-bottom: 2.4rem;
+    }
+
+    .social-list li{        /* Size of Every LI */
+        width: calc(100% / 8);
+        height: 10rem;
+    }
+
+    .social-list--link{
+        gap: 1.2rem;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .img-span {         /* Size of imgs of social list */
+        max-height: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media only screen and (min-width: 1024px) {  /* Desktop - laptop */
+    .main-social-tree {
+        width: 100%;
+        height: 20rem;
+        max-height: 24vh;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 0;
+    }
+
+    .social-tree-title {
+        margin-bottom: 0;
+        width: 16%;
+    }
+
+    .social-tree-title p{
+        display: flex;
+        align-items: center;
+    }
+    
+}
