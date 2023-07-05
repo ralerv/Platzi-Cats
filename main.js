@@ -1,5 +1,21 @@
+//user function
+function verifyUser(){
+    let userID = localStorage.getItem('localUUID');
+    if (userID==null){
+        localID = uuid.v4();
+        localStorage.setItem("localUUID", localID);
+        return userID;
+    }
+    else {return userID}
+    
+}
+
+let user = verifyUser();
+
+
 //bring elements
 const randomImgSection = document.getElementById("cat-images");
+const FavSection = document.getElementById("cat-favorites__section");
 
 //const
 const API_KEY = 'live_r9g5A2cuXYhcPQOecpbPlRUwZ54UY6U3mt3M6A2QjVFwM7eHqzwptJNSOLF0Fvfv';
@@ -15,7 +31,7 @@ const getIMGS = [`${apiImg}`,
     `&api_key=${API_KEY}`,
 ].join('');
 
-const getFavorites = [`${apiImg}`,`/v1/favourites`].join('');
+const urlFavorites = [`${apiImg}`,`/v1/favourites`,`?sub_id=${user}&order=DESC`].join('');
 
 //async functions to bring data
 async function fetchData(url){
@@ -30,9 +46,10 @@ async function fetchData(url){
 }
     
 
-async function repeat(){ //to repeat, await bc is using another async function?
+async function getImages(){ //to repeat, await bc is using another async function?
     //use fetchdata func
-    const imgData = await fetchData(getIMGS);    
+    const imgData = await fetchData(getIMGS);
+    console.log(imgData);    
     if (imgData < 200 || imgData > 200){
         randomImgSection.classList.add("errorCat");
         randomImgSection.innerHTML = `<h2>Hubo un error</h2>
@@ -59,8 +76,27 @@ async function repeat(){ //to repeat, await bc is using another async function?
     
 }
 
+async function getFavorites(){
+    const favouritesData = await fetchData(urlFavorites);
+    console.log(favouritesData);
+    if (favouritesData < 200 || favouritesData > 200){
+        
+    }
+        //put values of data
+
+    else {
+        if(randomImgSection.classList.contains("errorCat")){randomImgSection.classList.remove("errorCat");}
+
+    }
+}
+
 function favorito(imgID){
     console.log(imgID)
+}
+
+function repeat(){
+    getImages();
+    getFavorites();
 }
 
 repeat(); //first fetch
