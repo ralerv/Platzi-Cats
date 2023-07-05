@@ -1,18 +1,3 @@
-//user function
-function verifyUser(){
-    let userID = localStorage.getItem('localUUID');
-    if (userID==null){
-        localID = uuid.v4();
-        localStorage.setItem("localUUID", localID);
-        return userID;
-    }
-    else {return userID}
-    
-}
-
-let user = verifyUser();
-
-
 //bring elements
 const randomImgSection = document.getElementById("cat-images");
 const FavSection = document.getElementById("cat-favorites__section");
@@ -25,13 +10,15 @@ const limit = 4;
 const apiImg = "https://api.thecatapi.com";
 const apiHTTPCats = "https://http.cat";
 
+
+
 const getIMGS = [`${apiImg}`,
     '/v1/images/search',
     `?limit=${limit}`,
     `&api_key=${API_KEY}`,
 ].join('');
 
-const urlFavorites = [`${apiImg}`,`/v1/favourites`,`?sub_id=${user}&order=DESC`].join('');
+const urlFavorites = [`${apiImg}`,`/v1/favourites`,`?order=DESC`].join('');
 
 //async functions to bring data
 async function fetchData(url){
@@ -44,12 +31,10 @@ async function fetchData(url){
         const data = await response.json();
         return data;}
 }
-    
 
 async function getImages(){ //to repeat, await bc is using another async function?
     //use fetchdata func
     const imgData = await fetchData(getIMGS);
-    console.log(imgData);    
     if (imgData < 200 || imgData > 200){
         randomImgSection.classList.add("errorCat");
         randomImgSection.innerHTML = `<h2>Hubo un error</h2>
@@ -77,21 +62,48 @@ async function getImages(){ //to repeat, await bc is using another async functio
 }
 
 async function getFavorites(){
-    const favouritesData = await fetchData(urlFavorites);
-    console.log(favouritesData);
-    if (favouritesData < 200 || favouritesData > 200){
-        
+    let header = {
+        headers:{
+            "content-type":"application/json",
+            'x-api-key': `${API_KEY}`
+        }
     }
-        //put values of data
-
+    let response = await fetch(`${urlFavorites}&sub_id=${user}`,header);
+    console.log(response);
+    if (response < 200 || response > 200){
+        console.log(response.status);
+    }
+    //read favorites
     else {
-        if(randomImgSection.classList.contains("errorCat")){randomImgSection.classList.remove("errorCat");}
+        const data = await response.json();
+        console.log(data)
 
     }
 }
 
-function favorito(imgID){
+async function favorito(imgID){
     console.log(imgID)
+    const rawBody = JSON.stringify({ 
+        "image_id": imgID,
+        "sub_id":user
+    });
+    const header = {
+        method: 'POST',
+        headers: {  "content-type":"application/json",'x-api-key': API_KEY} ,
+        body: rawBody};
+
+    let response = await fetch(`${urlFavorites}&sub_id=${user}`,header);
+    if (response < 200 || response > 200){
+        console.log(response.status);
+    }
+        //put values of data
+
+    else {
+        const data = await response.json();
+        console.log(data);
+        getFavorites();
+    }
+    
 }
 
 function repeat(){
@@ -99,4 +111,19 @@ function repeat(){
     getFavorites();
 }
 
+//user function
+function verifyUser(){
+    let userID = localStorage.getItem('localUUID');
+    if (userID==null){
+        localID = uuid.v4();
+        localStorage.setItem("localUUID", localID);
+        return userID;
+    }
+    else {return userID}
+}
+const user = verifyUser();
+
 repeat(); //first fetch
+
+
+
