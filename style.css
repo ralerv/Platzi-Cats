@@ -44,7 +44,7 @@ h1{
 main {
     height: 92vh;
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 75% 25%;
     grid-template-rows: 90% 10%;
     background-color: var(--gunmetal);
 }
@@ -69,8 +69,25 @@ main button{
     place-items: center;
 }
 
-.cat-favorites p{
+#cat-favorites p{
     text-align: center;
+}
+
+#cat-favorites__section{
+    overflow-y: scroll;
+    max-height: 100%;
+    padding: 20px;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+}
+
+#cat-favorites__section::-webkit-scrollbar {
+    display: none;
+}
+
+#cat-favorites__section div{
+    scroll-snap-align: center;
 }
 
 #cat-favorites__section p{

@@ -9,6 +9,7 @@ const limit = 4;
 //put api urls
 const apiImg = "https://api.thecatapi.com";
 const apiHTTPCats = "https://http.cat";
+const CDNApiCat = "https://cdn2.thecatapi.com/images";
 
 
 
@@ -76,7 +77,15 @@ async function getFavorites(){
     //read favorites
     else {
         const data = await response.json();
-        console.log(data)
+        FavSection.innerHTML = ""; //reset img section
+        data.forEach(element => {
+            let imgID = element.image.id;
+            FavSection.innerHTML += `
+            <div class="img-div">
+                <img src="${CDNApiCat}/${imgID}.jpg" alt="random cat - sorry no data">
+            </div>
+            `;
+        });
 
     }
 }
