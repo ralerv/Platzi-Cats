@@ -128,7 +128,6 @@ main button{
     filter: drop-shadow(0px 0px 4px var(--eagle-green));
 }
 
-
 .errorCat{
     display: flex;
     flex-direction: column;

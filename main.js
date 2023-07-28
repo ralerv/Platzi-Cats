@@ -10,7 +10,7 @@ const limit = 4;
 const apiImg = "https://api.thecatapi.com";
 const apiHTTPCats = "https://http.cat";
 const CDNApiCat = "https://cdn2.thecatapi.com/images";
-
+const API_URL_FAVOTITES_DELETE = (id) => `https://api.thecatapi.com/v1/favourites/${id}?api_key=${API_KEY}`
 
 
 const getIMGS = [`${apiImg}`,
@@ -20,6 +20,7 @@ const getIMGS = [`${apiImg}`,
 ].join('');
 
 const urlFavorites = [`${apiImg}`,`/v1/favourites`,`?order=DESC`].join('');
+
 
 //async functions to bring data
 async function fetchData(url){
@@ -51,7 +52,7 @@ async function getImages(){ //to repeat, await bc is using another async functio
             let imgID = element.id;
             randomImgSection.innerHTML += `
             <div class="img-div">
-                <button onclick="postFavorite('${imgID}')">
+                <button onclick="postFavorite('${imgID}')" id="${imgID}">
                     <svg width="800px" height="800px" viewBox="0 0 24 24" fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg"><path d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
                 <img src="${element.url}" alt="random cat - sorry no data">
@@ -80,8 +81,12 @@ async function getFavorites(){
         FavSection.innerHTML = ""; //reset img section
         data.forEach(element => {
             let imgID = element.image.id;
+            let delID = element.id;
             FavSection.innerHTML += `
             <div class="img-div">
+                <button onclick="deleteFavorite('${delID}')" id='${imgID}'>
+                    <svg width="800px" height="800px" viewBox="0 0 24 24" fill="#FFFF00" xmlns="http://www.w3.org/2000/svg"><path d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z" stroke="#FFFF00" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
                 <img src="${CDNApiCat}/${imgID}.jpg" alt="random cat - sorry no data">
             </div>
             `;
@@ -90,8 +95,36 @@ async function getFavorites(){
     }
 }
 
+try {
+    async function deleteFavorite(id_image){
+    const res = await fetch(API_URL_FAVOTITES_DELETE(id_image), {
+            method: 'DELETE',
+          });
+    const data = await res.json();
+    console.log(res)
+    console.log(data)
+    }
+} catch (error) {
+    console.log(error)
+}
+
+async function deleteFavorite(id_image){
+    const res = await fetch(API_URL_FAVOTITES_DELETE(id_image), {
+        method: 'DELETE',
+      });
+    const data = await res.json();
+
+    if (res.status !== 200) {
+        spanError.innerHTML = "Hubo un error: " + res.status + data.message;
+    } else {
+    console.log('Michi eliminado de favoritos')
+    getFavorites();
+    }
+}
+
 async function postFavorite(imgID){
     console.log(imgID)
+   
     const rawBody = JSON.stringify({ 
         "image_id": imgID,
         "sub_id":user
