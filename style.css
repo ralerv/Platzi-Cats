@@ -49,8 +49,19 @@ main {
     background-color: var(--gunmetal);
 }
 
-main button{
+.buttons{
     grid-area: 2 / 1 / 3 / 3;
+    width: 100%;
+    display: flex;
+}
+
+.repeat-button{
+    width: 100%;
+}
+
+.upload-div{
+    width: 100%;
+    height: 100%;
 }
 
 .cat-images{
@@ -231,6 +242,8 @@ footer{
     height: 100%;
     object-fit: contain;
 }
+
+
 
 /* #instagram--link:hover > span > img{
     transition: opacity transform filter;

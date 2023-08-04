@@ -148,6 +148,26 @@ async function postFavorite(imgID){
     
 }
 
+async function subirMichi(){
+    const form = document.getElementById("uploadForm");
+    const formData = new FormData(form);
+
+    const header = {
+        method: 'POST',
+        headers: { 'x-api-key': API_KEY} ,
+        body: formData};
+    const response = await fetch(`https://api.thecatapi.com/v1/images/upload`,header);
+    const data = await response.json();
+    if ( response.status  !== 201 ){
+            spanError.innerText = "Hubo un error: " + response.status + " "  + data.message
+    }else{
+        console.log("Michi cargado correctamente");
+        console.log({data});
+        console.log(data.url);
+    }      
+}
+
+
 function repeat(){
     getImages();
     getFavorites();
@@ -164,6 +184,20 @@ function verifyUser(){
     else {return userID}
 }
 const user = verifyUser();
+
+function previewImage () {
+    const IMG = document.querySelector('#imagePreview');
+    const reader = new FileReader();
+    const filePreview = document.querySelector('#file').files[0];
+    reader.addEventListener('load', () => {
+  
+      IMG.src = reader.result; }, false);
+  
+      if(filePreview) {
+        reader.readAsDataURL(filePreview)
+      }
+  
+  }
 
 repeat(); //first fetch
 
