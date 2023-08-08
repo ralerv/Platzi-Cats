@@ -27,11 +27,15 @@
             <button class="repeat-button" onclick="repeat()" ontouchend="repeat()">¡Otra vez!</button>
             <button class="uploadMenuBtn" id="uploadMenuBtn" onclick="menuUpload()" ontouchend="menuUpload()">Sube un Michi :D</button>
             <div class="div-hider" id="div-hider"></div>
-            <form class="upload-div" id="uploadForm">
-                <input type="file" name="file" id="file" onchange="previewImage()">
-                <img id="imagePreview" alt="Image preview">
-                <button type="button" id="uploadBtn" onclick="subirMichi()" ontouchend="subirMichi()">Subir Imagen</button>
-            </form>
+            <div class="div-form" id="div-form">
+                <form class="upload-div" id="uploadForm">
+                    <input type="file" name="file" id="file" onchange="previewImage()">
+                    <img id="imagePreview" alt="Image preview">
+                    <button type="button" id="uploadBtn" onclick="subirMichi()" ontouchend="subirMichi()">Subir Imagen</button>
+                </form>
+                <button class="closeMenu" id="closeMenu" onclick="hideMenuUpload()" ontouchend="hideMenuUpload()">Cerrar</button>
+            </div>
+            
         </div>
         
     </main>

@@ -2,6 +2,8 @@
 const randomImgSection = document.getElementById("cat-images");
 const FavSection = document.getElementById("cat-favorites__section");
 const hider = document.querySelector('#div-hider');
+const divForm = document.getElementById("div-form");
+
 
 //const
 const API_KEY = 'live_r9g5A2cuXYhcPQOecpbPlRUwZ54UY6U3mt3M6A2QjVFwM7eHqzwptJNSOLF0Fvfv';
@@ -88,7 +90,7 @@ async function getFavorites(){
                 <button onclick="deleteFavorite('${delID}')" id='${imgID}'>
                     <svg width="800px" height="800px" viewBox="0 0 24 24" fill="#FFFF00" xmlns="http://www.w3.org/2000/svg"><path d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z" stroke="#FFFF00" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
-                <img src="${CDNApiCat}/${imgID}.jpg" alt="random cat - sorry no data">
+                <img src="${CDNApiCat}/${imgID}.jpg" alt="random cat - sorry no data" onerror="this.onerror=null;this.src='${CDNApiCat}/${imgID}.gif';">
             </div>
             `;
         });
@@ -206,12 +208,14 @@ function menuUpload(){
     form.style.display="grid";
     hider.style.display = "block";
     hider.style.opacity = "90%";
+    divForm.style.display="block";
 }
 
 function hideMenuUpload(){
     const form = document.getElementById("uploadForm");
     hider.style.display = "none";
     form.style.display="none";
+    divForm.style.display="none";
 }
 
 
