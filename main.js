@@ -1,6 +1,7 @@
 //bring elements
 const randomImgSection = document.getElementById("cat-images");
 const FavSection = document.getElementById("cat-favorites__section");
+const hider = document.querySelector('#div-hider');
 
 //const
 const API_KEY = 'live_r9g5A2cuXYhcPQOecpbPlRUwZ54UY6U3mt3M6A2QjVFwM7eHqzwptJNSOLF0Fvfv';
@@ -151,7 +152,6 @@ async function postFavorite(imgID){
 async function subirMichi(){
     const form = document.getElementById("uploadForm");
     const formData = new FormData(form);
-
     const header = {
         method: 'POST',
         headers: { 'x-api-key': API_KEY} ,
@@ -159,8 +159,9 @@ async function subirMichi(){
     const response = await fetch(`https://api.thecatapi.com/v1/images/upload`,header);
     const data = await response.json();
     if ( response.status  !== 201 ){
-            spanError.innerText = "Hubo un error: " + response.status + " "  + data.message
+            console.log("Hubo un error: " + response.status + " "  + data.message)
     }else{
+        hideMenuUpload();
         console.log("Michi cargado correctamente");
         console.log({data});
         console.log(data.url);
@@ -169,6 +170,7 @@ async function subirMichi(){
 
 
 function repeat(){
+    hideMenuUpload();
     getImages();
     getFavorites();
 }
@@ -198,6 +200,20 @@ function previewImage () {
       }
   
   }
+
+function menuUpload(){
+    const form = document.getElementById("uploadForm");
+    form.style.display="grid";
+    hider.style.display = "block";
+    hider.style.opacity = "90%";
+}
+
+function hideMenuUpload(){
+    const form = document.getElementById("uploadForm");
+    hider.style.display = "none";
+    form.style.display="none";
+}
+
 
 repeat(); //first fetch
 

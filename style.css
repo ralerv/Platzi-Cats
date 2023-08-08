@@ -59,10 +59,57 @@ main {
     width: 100%;
 }
 
-.upload-div{
+.div-hider {
+    display: none;
     width: 100%;
     height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 9;
+    background-attachment: fixed;
+    background-color: var(--dark-jungle-green);
+    opacity: 0%;
+    transition: opacity;
+    transition-duration: 500ms;
 }
+
+.uploadMenuBtn{
+    width: 50%;
+    height: 50%;
+}
+
+.upload-div{
+    position: absolute;
+    z-index: 10;
+    width: 50%;
+    min-height: 50%;
+    max-height: 88%;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: minmax(50%,auto) 20%;
+    background-color: var(--blue-sapphire);
+    border-radius: 20px;
+}
+
+.upload-div input{
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+.upload-div button{
+    grid-area: 2 / 2 / 3 / 3;
+}
+
+.upload-div img{
+    grid-area: 1 / 1 / 2 / 3;
+    place-self: center;
+    height: 88%;
+}
+
 
 .cat-images{
     display: grid;
